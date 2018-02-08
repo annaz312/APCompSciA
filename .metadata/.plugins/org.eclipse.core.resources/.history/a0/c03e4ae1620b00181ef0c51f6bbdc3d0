@@ -1,0 +1,18 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name - Anna Hong
+//Date - 3/6/18
+//Class - Period 1
+//Lab  - 02e
+
+public class Lab02e
+{
+	public static void main( String[] args )
+   {
+		Circle c = new Circle();
+		c.setRadius(4);
+		//c.calculateArea(4);
+		c.print();
+		
+		
+	}
+}
