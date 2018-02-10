@@ -32,7 +32,7 @@ public class StringChecker
 	{
 
 		for(int i = 0;i<word.length();i++ ){
-			if (word.charAt(i).equals('c')) {return true;}
+			if (word.charAt(i) == 'c') {return true;}
 			
 			else return false;
 						
