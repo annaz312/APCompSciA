@@ -12,48 +12,43 @@ public class StringChecker
 
 	public StringChecker()
 	{
-		
 
 
 	}
 
 	public StringChecker(String s)
 	{
-
+		setString(s);
 
 	}
 
    public void setString(String s)
    {
-	   word=s;
+   	word=s;
    }
 
 	public boolean findLetter(char c)
 	{
-
-		for(int i = 0;i<word.length();i++ ){
-			if (word.charAt(i).equals('c')) {return true;}
-			
-			else return false;
-						
-						
+		for (int i = 0; i <= word.length(); i++) {
+			if (word.charAt(i) == c) 
+				return true;
 		}
-			
-
 
 		return false;
 	}
 
 	public boolean findSubString(String s)
 	{
-
-
+		for (int i = 0; i <= word.length()-s.length(); i++) {
+			if (word.substring(i, i+s.length()).equals(s))
+				return true;
+		}
 
 		return false;
 	}
 
  	public String toString()
  	{
- 		return "\n\n";
+ 		return word;
 	}
 }
