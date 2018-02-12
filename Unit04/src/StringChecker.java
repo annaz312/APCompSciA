@@ -1,8 +1,8 @@
 //� A+ Computer Science  -  www.apluscompsci.com
-//Name -
-//Date -
-//Class -
-//Lab  -
+//Name -Anna Hong
+//Date -2/09/18
+//Class - period 1
+//Lab  -04e
 
 import static java.lang.System.*;
 
