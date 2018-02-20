@@ -1,5 +1,5 @@
 //� A+ Computer Science  -  www.apluscompsci.com
-//Name -
+//Name -Anna Hong
 //Date -
 //Class -
 //Lab  -
@@ -11,8 +11,9 @@ public class Lab09f
 	public static void main( String args[] )
 	{
 		LetterRemover l = new LetterRemover();
-		
-		
+		l.setRemover("addnnad dhodddngd ", 'd');
+		l.removeLetters();
+		out.println(l.toString());
 											
 	}
 }

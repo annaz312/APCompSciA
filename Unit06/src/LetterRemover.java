@@ -1,5 +1,5 @@
 //� A+ Computer Science  -  www.apluscompsci.com
-//Name -
+//Name -Anna Hong
 //Date -
 //Class -
 //Lab  -
@@ -31,14 +31,17 @@ public class LetterRemover
 	{
 		int count = 0;
 		String cleaned=sentence;
+		//while the char exists in the sentence, add the character to the blank statement.
 		//while (cleaned.indexOf(lookFor) != -1){
-		while (count <= 15){
-			cleaned = cleaned.substring(0, lookFor) + cleaned.substring(lookFor+1,cleaned.length());
+			//cleaned = cleaned + sentence.charAt(count);
+			//count++;
+		
+		while (cleaned.indexOf(lookFor) != -1){
+		
+			cleaned = cleaned.substring(0, cleaned.indexOf(lookFor)) +  
+					cleaned.substring(cleaned.indexOf(lookFor) + 1, cleaned.length());	
 			count++;
 		}
-
-
-
 
 
 		return cleaned;
@@ -46,6 +49,7 @@ public class LetterRemover
 
 	public String toString()
 	{
-		return sentence + " - letter to remove " + lookFor;
+		return removeLetters();
+		//return sentence + " - letter to remove " + lookFor + "\n" + this.removeLetters();
 	}
 }
