@@ -41,7 +41,7 @@ public class Deck {
 
 				for (int k = 0; k < cards.length; k++) {
 					tempCard[k] = cards[k];
-					
+
 				}
 				tempCard[tempCard.length - 1] = card;
 				cards = tempCard;
@@ -49,7 +49,7 @@ public class Deck {
 
 		}
 		size = cards.length;
-	shuffle();
+		shuffle();
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class Deck {
 	 * @return true if this deck is empty, false otherwise.
 	 */
 	public boolean isEmpty() {
-		if (cards.length == 0){
+		if (cards.length == 0) {
 			return true;
 		}
 		return false;
@@ -82,23 +82,22 @@ public class Deck {
 		int j;
 		int len = cards.length;
 		Card[] shuffled = new Card[len];
-	
+
 		for (int k = 0; k < len; k++) {
 			do {
 				j = (int) (Math.random() * len);
-			} while (cards[j] ==null);
+			} while (cards[j] == null);
 			shuffled[k] = cards[j];
 			cards[j] = null;
 		}
-		
-		for (int i = 0; i < len; i++){
+
+		for (int i = 0; i < len; i++) {
 			cards[i] = shuffled[i];
 		}
-				
+
 		size = cards.length;
-		
+
 	}
-	
 
 	/**
 	 * Deals a card from this deck.
@@ -107,11 +106,11 @@ public class Deck {
 	 *         previously dealt.
 	 */
 	public Card deal() {
-		Card output = cards[size-1];
+		Card output = cards[size - 1];
 		size--;
 
 		return output;
-		
+
 	}
 
 	/**
@@ -135,12 +134,12 @@ public class Deck {
 		}
 
 		rtn = rtn + "\nDealt cards: \n";
-		for (int k = size ; k < cards.length-1; k--) {
+		for (int k = size; k < cards.length; k++) {
 			rtn = rtn + cards[k];
 			if (k != size) {
 				rtn = rtn + ", ";
 			}
-			if ((cards.length - size) % 2 == 0) {
+			if ((cards.length - k) % 2 == 0) {
 				// Insert carriage returns so entire deck is visible on console.
 				rtn = rtn + "\n";
 			}

@@ -15,7 +15,6 @@ public class DeckTester {
 		Deck d = new Deck(ranks,suits, values);
 		System.out.println(d);
 		
-		
 		String suits1[] = {"lions", "tigers", "bears"};
 		int values1[] = {1, 2, 3};
 		String ranks1[] = {"1","2", "3"};
@@ -31,6 +30,20 @@ public class DeckTester {
 		System.out.println(f);
 		
 		System.out.println("--------------");
+		
+
+		suits = new  String[]{"spades", "diamonds", "hearts", "clubs"};
+		values =  new int[]{1,2,3,4, 5, 6,7,8,9,10,11,12,13};
+		ranks = new String[]{"Ace", "2", "3","4","5","6","7","8","9","10","Jack", "Queen","King"};
+		
+		Deck test = new Deck(ranks, suits,values);
+		System.out.println(test);
+		System.out.println("\nDealt 2 Cards: ");
+		System.out.println(test.deal());
+		System.out.println(test.deal());
+		System.out.println("\n " + test);
+		
+		
 
 		
 	}
