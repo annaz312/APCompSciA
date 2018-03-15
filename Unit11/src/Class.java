@@ -77,7 +77,7 @@ public class Class
 
 	public String getStudentWithHighestAverage()
 	{
-		double high = Double.MIN_VALUE;
+		/*double high = Double.MIN_VALUE;
 		Student best = null;
 		for (int i = 0; i < studentList.length; i++){
 			Student student = studentList[i];
@@ -86,12 +86,16 @@ public class Class
 				best = student;
 		}
 
-		return best.getName();
+		return best.getName();*/
+		
+		sort();
+		return studentList[studentList.length - 1].getName();
 	}
 
 	public String getStudentWithLowestAverage()
 	{
-		double low = Double.MAX_VALUE;
+		
+		/*double low = Double.MAX_VALUE;
 		Student worst = null; 
 		for (int i = 0; i < studentList.length; i++){
 			Student student = studentList[i];
@@ -100,7 +104,10 @@ public class Class
 				worst = student;
 			}
 		}
-		return worst.getName();
+		return worst.getName();*/
+		
+		sort();
+		return studentList[0].getName();
 	}
 	
 	public String getFailureList(double failingGrade)
