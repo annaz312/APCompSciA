@@ -29,7 +29,14 @@ public class Class
 	public void addStudent(int stuNum, Student s)
 	{
 		studentList[stuNum] = s;
+		
 	}
+	
+	public void sort(){
+		Arrays.sort(studentList);
+	}
+	
+	
 	
 	public String getClassName()
 	{
@@ -116,7 +123,7 @@ public class Class
 			output = output + studentList[i] + "\n";
 		}
 		for (int i = 0; i < studentList.length;i++){
-			output = output + studentList[i].getName() + "\'s average = " + studentList[i].getAverage() + "\n" ;
+			output = output + studentList[i].getName() + String.format("\'s average = %.2f\n", studentList[i].getAverage()) + "\n" ;
 		}
 		
 		//output = "Failure List = " + this.getFailureList(failingGrade)
