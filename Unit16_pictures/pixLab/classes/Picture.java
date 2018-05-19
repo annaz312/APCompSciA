@@ -6,6 +6,8 @@ import java.text.*;
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
 
+import org.omg.CORBA.Current;
+
 /**
  * A class that represents a picture.  This class inherits from 
  * SimplePicture and allows the student to add functionality to
@@ -36,6 +38,7 @@ public class Picture extends SimplePicture
   {
     // let the parent class handle this fileName
     super(fileName);
+    System.out.println("Anna Hong \nPeriod 1 \n4/24/18 \n computer # 33");
   }
   
   /**
@@ -89,15 +92,7 @@ public class Picture extends SimplePicture
   
   
   //written by me - PICKING COLORS
-  public void keepOnlyBlue(){
-	  Pixel[][] pixels = this.getPixels2D();
-	  for (Pixel[] rowArray : pixels){
-		  for (Pixel pixelObj : rowArray){
-			  pixelObj.setRed(0);
-			  pixelObj.setGreen(0);
-		  }
-	  }
-  }
+ 
   
   public void keepOnlyRed(){
 	  Pixel[][] pixels = this.getPixels2D();
@@ -455,9 +450,145 @@ public class Picture extends SimplePicture
   public static void main(String[] args) 
   {
     Picture beach = new Picture("beach.jpg");
-    beach.explore();
+  //  beach.explore();
     beach.zeroBlue();
-    beach.explore();
+   // beach.explore();
   }
+  
+  public void keepOnlyBlue(){
+	  Pixel[][] pixels = this.getPixels2D();
+	  for (Pixel[] rowArray : pixels){
+		  for (Pixel pixelObj : rowArray){
+			  pixelObj.setRed(0);
+			  pixelObj.setGreen(0);
+		  }
+	  }
+  }
+  
+  //LAB ASSESSMENT
+  public void blur(int x, int y, int w, int h){
+	  Pixel[][] pixels = this.getPixels2D();
+	  for (int row = 0; row < pixels.length; row++){
+		  for (int col = 0; col < pixels[0].length; col++){
+			  if(row > 0 && row < h && col > 0 && col < w){
+				pixels[row][col].setRed(blurHelperRed(row,col,pixels));
+				pixels[row][col].setBlue(blurHelperBlue(row,col,pixels));
+				pixels[row][col].setGreen(blurHelperGreen(row,col,pixels));
+			  }
+		  }
+	  }
+  }
+  
+  public int blurHelperRed(int row, int col, Pixel[][] pixels){
+	  //gets average of surrounding pixel colors
+	  double top = pixels[row - 1][col].getRed();
+	  double bottom = pixels[row + 1][col].getRed();
+	  double left = pixels[row][col-1].getRed();
+	  double right = pixels[row][col+1].getRed();
+	  return (int) (top + bottom + left + right) / 4;
+	  
+  }
+  
+  public int blurHelperBlue(int row, int col, Pixel[][] pixels){
+	  //gets average of surrounding pixel colors
+	  double top = pixels[row - 1][col].getBlue();
+	  double bottom = pixels[row + 1][col].getBlue();
+	  double left = pixels[row][col-1].getBlue();
+	  double right = pixels[row][col+1].getBlue();
+	  return (int) (top + bottom + left + right) / 4;
+	  
+  }
+  
+  public int blurHelperGreen(int row, int col, Pixel[][] pixels){
+	  //gets average of surrounding pixel colors
+	  double top = pixels[row - 1][col].getGreen();
+	  double bottom = pixels[row + 1][col].getGreen();
+	  double left = pixels[row][col-1].getGreen();
+	  double right = pixels[row][col+1].getGreen();
+	  return (int) (top + bottom + left + right) / 4;
+	  
+  }
+  /** Hide a black and white message in the current
+  * picture by changing the red to even and then
+  * setting it to odd if the message pixel is black
+  * @param messagePict the picture with a message
+  */
+  
+  //if red % 5 == 2 AND blue % 5 == 2, pixel is BLACK
+	public void encode(Picture messagePict) {
+		Pixel[][] messagePixels = messagePict.getPixels2D();
+		Pixel[][] currPixels = this.getPixels2D();
+		Pixel currPixel = null;
+		Pixel messagePixel = null;
+		int count = 0;
+		for (int row = 0; row < this.getHeight(); row++) {
+			for (int col = 0; col < this.getWidth(); col++) {
+				// if the current pixel red is odd make it even
+				currPixel = currPixels[row][col];
+				if (currPixel.getRed() % 5 == 2)
+					currPixel.setRed(currPixel.getRed() - 1);
+				/*if(currPixel.getBlue() % 5 == 2)
+					currPixel.setBlue(currPixel.getBlue() - 1);*/
+				
+				messagePixel = messagePixels[row][col];
+				if (messagePixel.colorDistance(Color.BLACK) < 50) {
+					int redValue = currPixel.getRed();
+					int blueValue = currPixel.getBlue();
+					
+					if (redValue % 5 == 0)
+						currPixel.setRed(redValue + 2);
+					else if(redValue % 5 == 1)
+						currPixel.setRed(redValue + 1);
+					else if (redValue %5 == 3)
+						currPixel.setRed(redValue - 1);
+					else if(redValue % 5 == 4)
+						currPixel.setRed(redValue - 2);
+					
+					if (blueValue % 5 ==0)
+						currPixel.setBlue(blueValue + 2);
+					else if(blueValue % 5 == 1)
+						currPixel.setBlue(blueValue + 1);
+					else if(blueValue % 5 == 3)
+						currPixel.setBlue(blueValue - 1);
+					else if(blueValue % 5 == 4)
+						currPixel.setBlue(blueValue - 2);
+					
+					count++;
+				}
+			}
+		}
+		System.out.println(count);
+	}
+  /**
+  * Method to decode a message hidden in the
+  * red value of the current picture
+  * @return the picture with the hidden message
+  */
+	public Picture decode() {
+		Pixel[][] pixels = this.getPixels2D();
+		int height = this.getHeight();
+		int width = this.getWidth();
+		Pixel currPixel = null;
+
+		Pixel messagePixel = null;
+		Picture messagePicture = new Picture(height, width);
+		Pixel[][] messagePixels = messagePicture.getPixels2D();
+		int count = 0;
+		for (int row = 0; row < this.getHeight(); row++) {
+			for (int col = 0; col < this.getWidth(); col++) {
+				currPixel = pixels[row][col];
+				messagePixel = messagePixels[row][col];
+				if (currPixel.getRed() % 5 == 2 && currPixel.getBlue() % 5 == 2) {
+					messagePixel.setColor(Color.BLUE);
+					count++;
+				}
+			}
+		}
+		System.out.println(count);
+		return messagePicture;
+	}
+
+	//red and blue
+	// % 5 == 2
   
 } // this } is the end of class Picture, put all new methods before this
